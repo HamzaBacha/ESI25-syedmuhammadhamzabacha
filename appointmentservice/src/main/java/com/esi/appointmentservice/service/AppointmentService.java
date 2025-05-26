@@ -1,6 +1,8 @@
 package com.esi.appointmentservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import com.esi.appointmentservice.dto.AppointmentDto;
 import com.esi.appointmentservice.model.Appointment;
@@ -18,6 +20,7 @@ public class AppointmentService {
 
   @Autowired
   private AppointmentRepository appointmentRepository;
+  private final KafkaTemplate<String, AppointmentDto> kafkaTemplate;
 
   public void appointmentBooked(AppointmentDto appointmentDto) {
   
@@ -31,6 +34,8 @@ public class AppointmentService {
 
       
         appointmentRepository.save(appointment);
+
+        kafkaTemplate.send("appointment-topic", appointmentDto);
   }
   private AppointmentDto mapToAppointmentDto(Appointment appointment) {
     return AppointmentDto.builder()

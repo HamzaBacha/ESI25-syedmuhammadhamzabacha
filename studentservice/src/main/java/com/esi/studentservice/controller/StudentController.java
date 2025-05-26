@@ -25,16 +25,12 @@ public class StudentController {
     @PostMapping("/student")
     public ResponseEntity<String> addStudentInfo(@RequestBody StudentDto studentDto) {
         studentService.addStudentInfo(studentDto);
-        return ResponseEntity.ok("Student info recieved");
+        return ResponseEntity.ok("Student info received");
     }
 
-    // Task 4
-
-    /*
-     * @GetMapping("/student/{id}")
-     * public String fetchStudentData(@PathVariable String id) {
-     * return studentService.fetchStudentData(id);
-     * }
-     */
-
+    @GetMapping("/student/{id}")
+    public ResponseEntity<String> fetchStudentData(@PathVariable String id) {
+        String studentData = studentService.fetchStudentData(id);
+        return ResponseEntity.ok(studentData);
+    }
 }

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.esi.teacherservice.dto.AppointmentDto;
 import com.esi.teacherservice.service.TeacherService;
 
+import lombok.Data;
+
+@Data
 @RestController
 @RequestMapping("/api")
 public class TeacherController {
@@ -18,11 +21,11 @@ public class TeacherController {
     private TeacherService teacherService;
 
     // Task 4
-    /*
-     * @GetMapping("/appointment")
-     * public List<AppointmentDto> getAllAppointments() {
-     * return teacherService.getAllAppointments();
-     * }
-     */
+    
+     @GetMapping("/appointment")
+      public List<AppointmentDto> getAllAppointments() {
+      return teacherService.getAllAppointments();
+     }
+     
 
 }
